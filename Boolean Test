@@ -1,33 +1,42 @@
-"""
-This was my first attempt. I'm posting to show the improvements I've made the second 
-addition and beyond.
-"""
-
 import random
-total_score = 0
+
+"""This function creates a boolean statement. A user gives their answer.
+It is compared to pythons evalution and gives them a point if they are correct. """
 def booleanTestGenerator():
+    total_score =0
     print('What is the evaluation of this boolean expression? Answer True or False')
     firstValue = random.choice([True, False, 1, 0])
     operator = random.choice(['and', 'or', '==', '!='])
     secondValue = random.choice([True, False, 1, 0])
-    useNot = random.choice([0,1])
-    if useNot== 1:
+
+    #Simplified the if statement and got rid of the useNot variable
+    #Also changed it over to True, False rather than 0,1 per Ryan's suggestion
+    if  random.choice([True, False]) == True:
         boolStatement = str(firstValue) + ' ' + operator + ' ' + str(secondValue)
         print(f'{firstValue} {operator} {secondValue}')
     else:
         boolStatement = 'not(' + str(firstValue) + ' ' + operator + ' ' + \
         str(secondValue) + ')'
         print(f'not({firstValue} {operator} {secondValue})')
+
     userAnswer = input().strip().title()
+
     print('\nPython\'s evaluation:')
     print(bool(eval(boolStatement)))
     if userAnswer == str(bool(eval(boolStatement))):
         print('You are correct!\n')
-        global total_score
         total_score +=1
+        #added return statements to send out the score
+        #return total_score
     else:
         print('Sorry, that isn\'t right\n')
+
+    return total_score
+
+#Calls the function five times and calculate the number of correct answers
+new_score = 0
 for x in range(5):
-    booleanTestGenerator()
-print(f'Total correct out of 5: {total_score}')
-print(f'Total percent: {(total_score/5)*100}')
+    new_score = new_score + booleanTestGenerator()
+
+print(f'Total correct out of 5: {new_score}')
+print(f'Total percent: {(new_score/5)*100}')
